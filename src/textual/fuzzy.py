@@ -77,6 +77,10 @@ class FuzzySearch:
         # This is a heuristic, and can be tweaked for better results
         # Boost first letter matches
         offset_count = len(positions)
+        if offset_count == 0:
+            # An empty query matches nothing; score it zero rather than
+            # failing to unpack the (non-existent) first offset below.
+            return 0.0
         score: float = offset_count + len(first_letters.intersection(positions))
 
         groups = 1

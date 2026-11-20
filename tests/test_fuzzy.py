@@ -9,6 +9,13 @@ def test_no_match():
     assert matcher.match("foo") == 0
 
 
+def test_empty_query():
+    """An empty query should score zero rather than raise (issue #6776)."""
+    matcher = Matcher("")
+    assert matcher.match("Toggle dark mode") == 0
+    assert matcher.match("") == 0
+
+
 def test_match_single_group():
     """Check that single groups rang higher."""
     matcher = Matcher("abc")
